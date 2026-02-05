@@ -101,12 +101,15 @@
         
 const username = document.getElementById("admin-username").value.trim();
 const password = document.getElementById("admin-password").value.trim();
-        
+        alert(
+  "username: [" + username + "]\n" +
+  "password: [" + password + "]\n" +
+  "validUsername: [" + validUsername + "]\n" +
+  "validPassword: [" + validPassword + "]"
+);
+
     
-        if (username === validUsername && password === validPassword) {
-          alert("Вход выполнен успешно");
-        } else {
-          loginError.textContent = "Неверный логин или пароль";
+      
         }
       });
 
