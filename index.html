@@ -114,3 +114,71 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>Вход в админ-панель</h2>
+
+  <form id="login-form">
+    <input type="text" id="username" placeholder="Логин">
+    <input type="password" id="password" placeholder="Пароль">
+    <button type="submit">Войти</button>
+  </form>
+
+  <div id="error"></div>
+</div>
+
+<script>
+window.onload = function () {
+  const validUsername = "admin";
+  const validPassword = "admin123";
+
+  const form = document.getElementById("login-form");
+  const error = document.getElementById("error");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (username === validUsername && password === validPassword) {
+      localStorage.setItem("isAuth", "true");
+      window.location.href = "admin.html";
+    } else {
+      error.textContent = "Неверный логин или пароль";
+    }
+  });
+};
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>Вход в админ-панель</h2>
+
+  <form id="login-form">
+    <input type="text" id="username" placeholder="Логин">
+    <input type="password" id="password" placeholder="Пароль">
+    <button type="submit">Войти</button>
+  </form>
+
+  <div id="error"></div>
+</div>
+
