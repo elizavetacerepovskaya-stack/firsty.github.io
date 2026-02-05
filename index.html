@@ -83,17 +83,13 @@ body {
 
 
 <script>
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
 
     alert(`Сообщение отправлено!\nИмя: ${name}\nEmail: ${email}\nСообщение: ${message}`);
     
-    // Очистка формы
-    document.getElementById('contact-form').reset();
+    // Очистка формы 
 });
 const validUsername = "admin";  
 const validPassword = "admin123";  
