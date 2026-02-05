@@ -95,26 +95,20 @@
 
       const loginForm = document.getElementById("login-form");
       const loginError = document.getElementById("login-error");
+loginForm.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-      loginForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-        
-const username = document.getElementById("admin-username").value.trim();
-const password = document.getElementById("admin-password").value.trim();
-        if (username === validUsername && password === validPassword) {
-  window.location.href = "admin.html";
-} else {
-  loginError.textContent = "Неверный логин или пароль";
-}
+  const username = document.getElementById("admin-username").value;
+  const password = document.getElementById("admin-password").value;
 
-);
+  if (username === validUsername && password === validPassword) {
+    window.location.href = "admin.html";
+  } else {
+    loginError.textContent = "Неверный логин или пароль";
+  }
+});
 
-    
       
-        }
-      });
-
-    };
   </script>
 
 </body>
