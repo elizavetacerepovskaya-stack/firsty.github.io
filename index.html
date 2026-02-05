@@ -81,41 +81,30 @@ body {
 </body>
 </html> -->
 <script>
-  window.onload = function () {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+window.onload = function () {
 
-    alert(`Сообщение отправлено!\nИмя: ${name}\nEmail: ${email}\nСообщение: ${message}`);
-    
-    // Очистка формы 
-});
-const validUsername = "admin";  
-const validPassword = "admin123";  
+  const validUsername = "admin";
+  const validPassword = "admin123";
 
-// Проверка на наличие флага в localStorage при загрузке страницы
-window.onload = function() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn) {
-        // Если пользователь авторизован, показываем админ панель
-        document.getElementById('login-section').style.display = 'none';
-        document.getElementById('admin-dashboard').style.display = 'block';
-    } else {
-        // Если пользователь не авторизован, скрываем админ панель
-        document.getElementById('login-section').style.display = 'block';
-        document.getElementById('admin-dashboard').style.display = 'none';
-    }
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('admin-username').value;
+      const password = document.getElementById('admin-password').value;
+
+      if (username === validUsername && password === validPassword) {
+        alert("Вход выполнен успешно");
+      } else {
+        loginError.textContent = "Неверный логин или пароль";
+      }
+    });
+  }
+
 };
-
-// Логика для входа
-document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const username = document*/
 </script>
-
-</body>
-</html>
-
 
 
