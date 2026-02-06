@@ -44,17 +44,15 @@ button {
 button:hover {
   background-color: #e67e22;
 }
-#logout-btn {
-  background-color: #e74c3c;
-}
-#logout-btn:hover {
-  background-color: #c0392b;
-}
 footer {
   text-align: center;
   padding: 15px;
   background: #34495e;
   margin-top: 40px;
+}
+#login-error {
+  color: red;
+  display: none;
 }
 </style>
 </head>
@@ -71,13 +69,7 @@ footer {
     <input type="password" id="admin-password" placeholder="Пароль" required>
     <button type="submit">Войти</button>
   </form>
-  <p id="login-error" style="color: red; display: none;">Неверные данные для входа</p>
-</section>
-
-<section id="admin-dashboard" style="display: none;">
-  <h2>Добро пожаловать, администратор!</h2>
-  <p>Здесь вы можете управлять сайтом, добавлять новости, изменять контент и многое другое.</p>
-  <button id="logout-btn">Выйти</button>
+  <p id="login-error">Неверные данные для входа</p>
 </section>
 
 <footer>
@@ -86,34 +78,25 @@ footer {
 
 <script>
 const loginForm = document.getElementById("login-form");
-const loginSection = document.getElementById("login-section");
-const dashboard = document.getElementById("admin-dashboard");
-const logoutBtn = document.getElementById("logout-btn");
 const loginError = document.getElementById("login-error");
 
-// Пример "правильных" данных для входа
+// "Правильные" данные
 const correctUsername = "admin";
 const correctPassword = "1234";
 
 loginForm.addEventListener("submit", function(event) {
-  event.preventDefault(); // Останавливаем перезагрузку страницы
-  
+  event.preventDefault(); // Не перезагружать страницу
+
   const username = document.getElementById("admin-username").value.trim();
   const password = document.getElementById("admin-password").value.trim();
-  
+
   if (username === correctUsername && password === correctPassword) {
-    loginSection.style.display = "none";
-    dashboard.style.display = "block";
-    loginError.style.display = "none";
+    // **Ничего не делать**, просто оставляем пользователя на той же странице
+    loginError.style.display = "none"; // скрываем ошибку, если была
+    alert("Вы успешно вошли!"); // можно оставить уведомление
   } else {
     loginError.style.display = "block";
   }
-});
-
-logoutBtn.addEventListener("click", function() {
-  dashboard.style.display = "none";
-  loginSection.style.display = "block";
-  loginForm.reset();
 });
 </script>
 
