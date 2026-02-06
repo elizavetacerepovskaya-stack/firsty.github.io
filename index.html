@@ -204,19 +204,110 @@
 
 </body>
 </html>
+<!-- Подключение CSS для стилей -->
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+  }
+
+  #contact {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  #contact h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+
+  #contact p {
+    text-align: center;
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+  }
+
+  /* Стиль формы */
+  #contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #contact-form input,
+  #contact-form textarea {
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    transition: border-color 0.3s;
+  }
+
+  #contact-form input:focus,
+  #contact-form textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+
+  #contact-form button {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  #contact-form button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Социальные сети */
+  #social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+  }
+
+  #social-icons a {
+    font-size: 1.5em;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.2s;
+  }
+
+  #social-icons a:hover {
+    color: #007BFF;
+    transform: scale(1.2);
+  }
+</style>
+
+<!-- Раздел контактов -->
 <section id="contact">
   <h2>Связаться со мной</h2>
-  <p>Заполните форму или свяжитесь со мной через соцсети</p>
+  <p>Заполните форму или напишите мне через соцсети</p>
   <form id="contact-form">
-    <input type="@wavbo" placeholder="Ваше имя" required>
-    <input type="qqwars@gmail.com" placeholder="Ваш email" required>
-    <textarea placeholder="Ваше сообщение" required></textarea>
+    <input type="text" placeholder="Ваше имя" required>
+    <input type="email" placeholder="Ваш email" required>
+    <textarea rows="5" placeholder="Ваше сообщение" required></textarea>
     <button type="submit">Отправить</button>
   </form>
   <div id="social-icons">
-    <!-- Иконки соцсетей -->
-    <a href="#" target="_blank">VK</a>
-    <a href="#" target="_blank">Instagram</a>
-    <a href="#" target="_blank">Telegram</a>
+    <a href="#" target="_blank" title="VK">🌐</a>
+    <a href="#" target="_blank" title="Instagram">📸</a>
+    <a href="#" target="_blank" title="Telegram">✈️</a>
   </div>
 </section>
