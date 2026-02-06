@@ -1,80 +1,114 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Admin – Заявки</title>
+  <meta charset="UTF-8">
+  <title>Admin – Заявки</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-}
+    .container {
+      display: flex;
+      height: 100vh;
+    }
 
-.container {
-  display: flex;
-  height: 100vh;
-}
+    .sidebar {
+      width: 220px;
+      background: #1f2933;
+      color: #fff;
+      padding: 20px;
+    }
 
-.sidebar {
-  width: 220px;
-  background: #1f2933;
-  color: #fff;
-  padding: 20px;
-}
+    .sidebar h2 {
+      margin-top: 0;
+    }
 
-.sidebar h2 {
-  margin-top: 0;
-}
+    .sidebar p {
+      cursor: pointer;
+      margin: 15px 0;
+    }
 
-.sidebar p {
-  cursor: pointer;
-  margin: 15px 0;
-}
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
 
-.content {
-  flex: 1;
-  padding: 20px;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-}
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
+    th {
+      background: #f0f0f0;
+    }
 
-th {
-  background: #f0f0f0;
-}
+    select, input, textarea, button {
+      padding: 6px;
+    }
 
-select, input, textarea, button {
-  padding: 6px;
-}
+    button {
+      cursor: pointer;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
 
-button {
-  cursor: pointer;
-}
+    button:hover {
+      background-color: #d32f2f;
+    }
 
-.add-form {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
-}
+    .add-form {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
 
-.status-new { color: #2f80ed; }
-.status-work { color: #f2994a; }
-.status-done { color: #27ae60; }
-</style>
+    .status-new { color: #2f80ed; }
+    .status-work { color: #f2994a; }
+    .status-done { color: #27ae60; }
+
+    .status-select {
+      padding: 6px;
+      background-color: #f0f0f0;
+    }
+
+    /* Новые стили для кнопки удаления */
+    .remove-btn {
+      background-color: #ff5555;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .remove-btn:hover {
+      background-color: #ff4444;
+    }
+
+    /* Стили для формы (красные рамки, если поле не заполнено) */
+    .input-error {
+      border: 2px solid red;
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
-
   <div class="sidebar">
     <h2>Админка</h2>
     <p>📨 Заявки</p>
@@ -86,8 +120,8 @@ button {
     <!-- Добавить заявку (для теста) -->
     <div class="add-form">
       <h3>Новая заявка</h3>
-      <input id="name" placeholder="Имя"><br><br>
-      <input id="phone" placeholder="Телефон"><br><br>
+      <input id="name" placeholder="Имя" required><br><br>
+      <input id="phone" placeholder="Телефон" required><br><br>
       <textarea id="comment" placeholder="Комментарий"></textarea><br><br>
       <button onclick="addRequest()">Добавить</button>
     </div>
@@ -101,13 +135,12 @@ button {
           <th>Телефон</th>
           <th>Комментарий</th>
           <th>Статус</th>
-          <th></th>
+          <th>Удалить</th>
         </tr>
       </thead>
       <tbody id="table"></tbody>
     </table>
   </div>
-
 </div>
 
 <script>
@@ -128,14 +161,14 @@ function render() {
         <td>${r.phone}</td>
         <td>${r.comment}</td>
         <td>
-          <select onchange="changeStatus(${i}, this.value)">
+          <select class="status-select" onchange="changeStatus(${i}, this.value)">
             <option ${r.status=='new'?'selected':''} value="new">Новая</option>
             <option ${r.status=='work'?'selected':''} value="work">В работе</option>
             <option ${r.status=='done'?'selected':''} value="done">Закрыта</option>
           </select>
         </td>
         <td>
-          <button onclick="removeRequest(${i})">❌</button>
+          <span class="remove-btn" onclick="removeRequest(${i})">❌</span>
         </td>
       </tr>
     `;
@@ -147,7 +180,12 @@ function addRequest() {
   const phone = document.getElementById('phone').value;
   const comment = document.getElementById('comment').value;
 
-  if (!name || !phone) return alert('Заполни имя и телефон');
+  if (!name || !phone) {
+    alert('Заполни имя и телефон');
+    if (!name) document.getElementById('name').classList.add('input-error');
+    if (!phone) document.getElementById('phone').classList.add('input-error');
+    return;
+  }
 
   requests.push({
     name,
@@ -156,6 +194,7 @@ function addRequest() {
     status: 'new'
   });
 
+  // Очистка полей формы
   document.getElementById('name').value = '';
   document.getElementById('phone').value = '';
   document.getElementById('comment').value = '';
