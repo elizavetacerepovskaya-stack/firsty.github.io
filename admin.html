@@ -2,221 +2,99 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Admin – Заявки</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Логин</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f6f8;
-    }
-
-    .container {
+      background-color: #f4f6f8;
       display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
     }
 
-    .sidebar {
-      width: 220px;
-      background: #1f2933;
-      color: #fff;
-      padding: 20px;
+    .login-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
     }
 
-    .sidebar h2 {
-      margin-top: 0;
+    h2 {
+      margin: 0 0 20px;
+      text-align: center;
+      font-size: 24px;
     }
 
-    .sidebar p {
-      cursor: pointer;
-      margin: 15px 0;
-    }
-
-    .content {
-      flex: 1;
-      padding: 20px;
-    }
-
-    table {
+    input {
       width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-    }
-
-    th, td {
       padding: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background: #f0f0f0;
-    }
-
-    select, input, textarea, button {
-      padding: 6px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
     }
 
     button {
-      cursor: pointer;
-      background-color: #f44336;
+      width: 100%;
+      padding: 10px;
+      background-color: #2f80ed;
       color: #fff;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
     }
 
     button:hover {
-      background-color: #d32f2f;
+      background-color: #1d6bc6;
     }
 
-    .add-form {
-      background: #fff;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-    }
-
-    .status-new { color: #2f80ed; }
-    .status-work { color: #f2994a; }
-    .status-done { color: #27ae60; }
-
-    .status-select {
-      padding: 6px;
-      background-color: #f0f0f0;
-    }
-
-    /* Новые стили для кнопки удаления */
-    .remove-btn {
-      background-color: #ff5555;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      color: #fff;
-    }
-
-    .remove-btn:hover {
-      background-color: #ff4444;
-    }
-
-    /* Стили для формы (красные рамки, если поле не заполнено) */
-    .input-error {
-      border: 2px solid red;
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="sidebar">
-    <h2>Админка</h2>
-    <p>📨 Заявки</p>
+  <div class="login-container">
+    <h2>Вход в Админку</h2>
+
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Логин" required><br>
+      <input type="password" id="password" placeholder="Пароль" required><br>
+      <button type="submit">Войти</button>
+    </form>
+
+    <div class="error-message" id="error-message"></div>
   </div>
 
-  <div class="content">
-    <h2>Заявки</h2>
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('error-message');
 
-    <!-- Добавить заявку (для теста) -->
-    <div class="add-form">
-      <h3>Новая заявка</h3>
-      <input id="name" placeholder="Имя" required><br><br>
-      <input id="phone" placeholder="Телефон" required><br><br>
-      <textarea id="comment" placeholder="Комментарий"></textarea><br><br>
-      <button onclick="addRequest()">Добавить</button>
-    </div>
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-    <!-- Таблица -->
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Имя</th>
-          <th>Телефон</th>
-          <th>Комментарий</th>
-          <th>Статус</th>
-          <th>Удалить</th>
-        </tr>
-      </thead>
-      <tbody id="table"></tbody>
-    </table>
-  </div>
-</div>
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-<script>
-let requests = JSON.parse(localStorage.getItem('requests')) || [];
-const table = document.getElementById('table');
-
-function save() {
-  localStorage.setItem('requests', JSON.stringify(requests));
-}
-
-function render() {
-  table.innerHTML = '';
-  requests.forEach((r, i) => {
-    table.innerHTML += `
-      <tr>
-        <td>${i + 1}</td>
-        <td>${r.name}</td>
-        <td>${r.phone}</td>
-        <td>${r.comment}</td>
-        <td>
-          <select class="status-select" onchange="changeStatus(${i}, this.value)">
-            <option ${r.status=='new'?'selected':''} value="new">Новая</option>
-            <option ${r.status=='work'?'selected':''} value="work">В работе</option>
-            <option ${r.status=='done'?'selected':''} value="done">Закрыта</option>
-          </select>
-        </td>
-        <td>
-          <span class="remove-btn" onclick="removeRequest(${i})">❌</span>
-        </td>
-      </tr>
-    `;
-  });
-}
-
-function addRequest() {
-  const name = document.getElementById('name').value;
-  const phone = document.getElementById('phone').value;
-  const comment = document.getElementById('comment').value;
-
-  if (!name || !phone) {
-    alert('Заполни имя и телефон');
-    if (!name) document.getElementById('name').classList.add('input-error');
-    if (!phone) document.getElementById('phone').classList.add('input-error');
-    return;
-  }
-
-  requests.push({
-    name,
-    phone,
-    comment,
-    status: 'new'
-  });
-
-  // Очистка полей формы
-  document.getElementById('name').value = '';
-  document.getElementById('phone').value = '';
-  document.getElementById('comment').value = '';
-
-  save();
-  render();
-}
-
-function removeRequest(i) {
-  if (!confirm('Удалить заявку?')) return;
-  requests.splice(i, 1);
-  save();
-  render();
-}
-
-function changeStatus(i, status) {
-  requests[i].status = status;
-  save();
-}
-
-render();
-</script>
+      // Простой пример проверки логина и пароля
+      if (username === 'admin' && password === 'password123') {
+        alert('Вы успешно вошли в админку!');
+        // Здесь можно добавить редирект или показывать контент админки
+        window.location.href = "admin_dashboard.html"; // Пример перехода на страницу админки
+      } else {
+        errorMessage.textContent = 'Неверный логин или пароль.';
+      }
+    });
+  </script>
 
 </body>
 </html>
