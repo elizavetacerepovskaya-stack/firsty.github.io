@@ -1,100 +1,89 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin – Логин</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<meta charset="UTF-8">
+<title>Admin Login</title>
 
-    .login-container {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 300px;
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f8;
+    font-family: Arial, sans-serif;
+  }
 
-    h2 {
-      margin: 0 0 20px;
-      text-align: center;
-      font-size: 24px;
-    }
+  .box {
+    background: #fff;
+    padding: 30px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+  }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #2f80ed;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
 
-    button:hover {
-      background-color: #1d6bc6;
-    }
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #2f80ed;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
 
-    .error-message {
-      color: red;
-      font-size: 14px;
-      text-align: center;
-      margin-top: 10px;
-    }
-  </style>
+  button:hover {
+    background: #1d6bc6;
+  }
+
+  .error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
 </head>
 <body>
 
-  <div class="login-container">
-    <h2>Вход в Админку</h2>
+<div class="box">
+  <h2>Админка</h2>
 
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Логин" required><br>
-      <input type="password" id="password" placeholder="Пароль" required><br>
-      <button type="submit">Войти</button>
-    </form>
+  <input type="text" id="login" placeholder="Логин">
+  <input type="password" id="password" placeholder="Пароль">
 
-    <div class="error-message" id="error-message"></div>
-  </div>
+  <button onclick="checkLogin()">Войти</button>
 
-  <script>
-    const loginForm = document.getElementById('loginForm');
-    const errorMessage = document.getElementById('error-message');
+  <div class="error" id="error"></div>
+</div>
 
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();
+<script>
+function checkLogin() {
+  const login = document.getElementById('login').value;
+  const password = document.getElementById('password').value;
+  const error = document.getElementById('error');
 
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      // Простой пример проверки логина и пароля
-      if (username === 'admin' && password === 'password123') {
-        alert('Вы успешно вошли в админку!');
-        // Здесь можно добавить редирект или показывать контент админки
-        window.location.href = "admin_dashboard.html"; // Пример перехода на страницу админки
-      } else {
-        errorMessage.textContent = 'Неверный логин или пароль.';
-      }
-    });
-  </script>
+  // ДАННЫЕ ДЛЯ ВХОДА
+  if (login === 'admin' && password === '1234') {
+    alert('Вход выполнен');
+    // тут потом можно открыть админку
+  } else {
+    error.textContent = 'Неверный логин или пароль';
+  }
+}
+</script>
 
 </body>
 </html>
