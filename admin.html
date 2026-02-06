@@ -1,11 +1,135 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin panel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #2c3e50;
+  color: white;
+}
+
+header {
+  background: #34495e;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #34495e;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 30px;
+  background: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e67e22;
+}
+
+.error {
+  color: #ff6b6b;
+  display: none;
+  margin-top: 10px;
+}
+
+#dashboard {
+  display: none;
+}
+
+.logout {
+  background: #e74c3c;
+}
+
+.logout:hover {
+  background: #c0392b;
+}
+</style>
 </head>
+
 <body>
-  <h1>Добро пожаловать в админ-панель 🎉</h1>
-  <p>Вы успешно вошли.</p>
+
+<header>
+  Админ-панель Fintry
+</header>
+
+<div class="container" id="loginBox">
+  <h2>Вход в админку</h2>
+
+  <input type="text" id="username" placeholder="Логин">
+  <input type="password" id="password" placeholder="Пароль">
+
+  <button onclick="login()">Войти</button>
+
+  <div class="error" id="errorText">
+    Неверный логин или пароль
+  </div>
+</div>
+
+<div class="container" id="dashboard">
+  <h2>Добро пожаловать, администратор!</h2>
+  <p>Здесь можно управлять сайтом.</p>
+
+  <button class="logout" onclick="logout()">Выйти</button>
+</div>
+
+<script>
+const ADMIN_LOGIN = "admin";
+const ADMIN_PASSWORD = "admin123";
+
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+
+  if (user === ADMIN_LOGIN && pass === ADMIN_PASSWORD) {
+    localStorage.setItem("adminLogged", "true");
+    showDashboard();
+  } else {
+    document.getElementById("errorText").style.display = "block";
+  }
+}
+
+function showDashboard() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+}
+
+function logout() {
+  localStorage.removeItem("adminLogged");
+  location.reload();
+}
+
+window.onload = () => {
+  if (localStorage.getItem("adminLogged")) {
+    showDashboard();
+  }
+};
+</script>
+
 </body>
 </html>
