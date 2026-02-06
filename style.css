@@ -1,1 +1,82 @@
+/* Основные стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Навигация */
+.navbar {
+    background-color: #2e8b57;
+    padding: 15px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Секции */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* Новости */
+.news-item {
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Контактная форма */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    gap: 15px;
+}
+
+form input, form textarea, form button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+form button {
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #246b45;
+}
+
+/* Подвал */
+footer {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
 
