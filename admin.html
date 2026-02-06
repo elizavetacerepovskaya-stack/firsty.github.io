@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Админ панель - Fintry</title>
-
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -12,13 +11,11 @@ body {
   background-color: #2c3e50;
   color: #ecf0f1;
 }
-
 header {
   text-align: center;
   padding: 20px;
   background-color: #34495e;
 }
-
 section {
   max-width: 600px;
   margin: 40px auto;
@@ -27,7 +24,6 @@ section {
   border-radius: 10px;
   text-align: center;
 }
-
 input {
   display: block;
   width: 100%;
@@ -37,7 +33,6 @@ input {
   border-radius: 6px;
   border: none;
 }
-
 button {
   padding: 12px 25px;
   background-color: #f39c12;
@@ -46,19 +41,15 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
-
 button:hover {
   background-color: #e67e22;
 }
-
 #logout-btn {
   background-color: #e74c3c;
 }
-
 #logout-btn:hover {
   background-color: #c0392b;
 }
-
 footer {
   text-align: center;
   padding: 15px;
@@ -67,7 +58,6 @@ footer {
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -93,3 +83,39 @@ footer {
 <footer>
   <p>© 2026 Fintry. Все права защищены.</p>
 </footer>
+
+<script>
+const loginForm = document.getElementById("login-form");
+const loginSection = document.getElementById("login-section");
+const dashboard = document.getElementById("admin-dashboard");
+const logoutBtn = document.getElementById("logout-btn");
+const loginError = document.getElementById("login-error");
+
+// Пример "правильных" данных для входа
+const correctUsername = "admin";
+const correctPassword = "1234";
+
+loginForm.addEventListener("submit", function(event) {
+  event.preventDefault(); // Останавливаем перезагрузку страницы
+  
+  const username = document.getElementById("admin-username").value.trim();
+  const password = document.getElementById("admin-password").value.trim();
+  
+  if (username === correctUsername && password === correctPassword) {
+    loginSection.style.display = "none";
+    dashboard.style.display = "block";
+    loginError.style.display = "none";
+  } else {
+    loginError.style.display = "block";
+  }
+});
+
+logoutBtn.addEventListener("click", function() {
+  dashboard.style.display = "none";
+  loginSection.style.display = "block";
+  loginForm.reset();
+});
+</script>
+
+</body>
+</html>
